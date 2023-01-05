@@ -1,0 +1,6 @@
+POST /api/auth/login HTTP/1.1
+Host: localhost:3000
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 28
+
+username=Test&password=LOL
