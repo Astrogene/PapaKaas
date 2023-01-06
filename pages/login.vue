@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useAuthStore } from "../store/auth";
+import { useAuthStore } from "../stores/auth";
 
 
 interface loginForm {
@@ -24,7 +24,9 @@ function login() {
     const router = useRouter();
     authStore
         .login(loginForm)
-        .then((_response) => router.push("/"))
+        .then((_response) => {
+            router.push("/")
+        })
         .catch((error) => console.log("API error", error));
 }
 </script>

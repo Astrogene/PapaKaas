@@ -10,7 +10,6 @@ export default defineEventHandler(async (event) => {
         }
     });
     if (user){
-        console.log(body.password)
         if (user.isValidPassword(body.password)){
             const token = jwt.sign({
                 id: user.id,

@@ -7,5 +7,9 @@
 </template>
 <script setup lang="ts">
 import { Users } from '~/models/database'
-const users = await Users.findAll();
+const users:any = await Users.findAll();
+
+definePageMeta({
+    middleware: 'auth-admin'
+})
 </script>

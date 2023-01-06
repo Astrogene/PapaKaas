@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import jwt from 'jsonwebtoken'
 
 const baseUrl = '/api/auth'
 
@@ -9,7 +10,6 @@ export const useAuthStore = defineStore({
     }),
     actions: {
         async login(loginForm: any) {
-            console.log("Loggin in")
             await $fetch(`${baseUrl}/login`, {
                 method: 'POST',
                 body: loginForm
@@ -23,7 +23,6 @@ export const useAuthStore = defineStore({
                 .catch(error => { throw error })
         },
         logout() {
-            //TODO remove token from server
             this.token = null
             localStorage.removeItem('token')
         },
