@@ -1,0 +1,101 @@
+import { defineStore } from 'pinia'
+
+const baseUrl = '/api/auth'
+
+export const useAuthStore = defineStore('auth', async () => {
+    watch(() => user, (state) => {
+        const cookie = useCookie('refresh', { maxAge: 60 * 60, httpOnly: true })
+        cookie.value = state.jwt_refresh
+    }, { deep: true })
+    const cookie = useCookie('refresh', { maxAge: 60 * 60, httpOnly: true })
+    let cookie_value = cookie.value
+    const user = reactive({
+        jwt_access: '',
+        jwt_refresh: cookie_value || '',
+        jwt_cookie: '',
+        user_id: -1,
+        user_role: '',
+        user_name: ''
+    })
+    async function login(loginForm: any) {
+        await $fetch(`${baseUrl}/login`, {
+            method: 'POST',
+            body: loginForm
+        })
+            .then(response => {
+                /* Update Pinia state */
+                if (response) {
+                    user.jwt_access = response.jwt_access
+                    user.jwt_refresh = response.jwt_refresh
+                    getUser()
+                    const cookie = useCookie('refresh', { maxAge: 60 * 60, httpOnly: true })
+                    if (cookie) {
+                        cookie.value = response.jwt_refresh
+                    }
+                }
+                /* Store user in local storage to keep them logged in between page refreshes */
+            })
+            .catch(error => { throw error })
+    }
+    function logout() {
+        user.jwt_access = ''
+        user.jwt_refresh = ''
+    }
+    async function register(registerForm: any) {
+        await $fetch(`${baseUrl}/register`, {
+            method: 'POST',
+            body: registerForm
+        })
+            .then(response => {
+                if (response) {
+                    user.jwt_access = response.jwt_access
+                    user.jwt_refresh = response.jwt_refresh
+                    getUser()
+                    const cookie = useCookie('refresh', { maxAge: 60 * 60, httpOnly: true })
+                    if (cookie) {
+                        cookie.value = response.jwt_refresh
+                    }
+                }
+            })
+            .catch(error => { throw error })
+    }
+    async function getUser() {
+        await $fetch(`/api/user/get-user`, {
+            method: 'POST',
+            headers: {
+                Authorization: user.jwt_access
+            }
+        }).then(response => {
+            if (response && response.user_id != -1) {
+                if (response.expired) {
+                    refreshToken()
+                }
+                user.user_id = response.user_id
+                user.user_role = response.auth_level
+                user.user_name = response.name
+            }
+        }).catch(error => { throw error })
+    }
+    async function refreshToken() {
+        await $fetch(`${baseUrl}/refresh`, {
+            method: 'POST',
+            body: {
+                refresh_token: user.jwt_refresh
+            }
+        }).then(response => {
+            if (response) {
+                user.jwt_access = response.access_token
+                return new Promise(resolve => resolve(true))
+            }
+            return new Promise(resolve => resolve(false))
+
+        }).catch(error => { throw error })
+    }
+    const isLoggedIn = computed(() => {
+        if (user.user_id != -1) {
+            return true
+        }
+        return false
+    })
+    return { user, login, logout, register, refreshToken, isLoggedIn }
+})

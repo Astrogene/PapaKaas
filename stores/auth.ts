@@ -4,16 +4,14 @@ const baseUrl = '/api/auth'
 
 export const useAuthStore = defineStore({
     id: 'auth',
-    state: () => { 
-        const cookie = useCookie('refresh', { maxAge: 60 * 60, httpOnly: true })
-        let cookie_value = cookie.value
+    state: () => {
         return {
-        jwt_access: '',
-        jwt_refresh: cookie_value || '',
-        jwt_cookie: '',
-        user_id: -1,
-        user_role: '',
-        user_name: ''
+            jwt_access: '',
+            jwt_refresh: '',
+            jwt_cookie: '',
+            user_id: -1,
+            user_role: '',
+            user_name: ''
         }
     },
     actions: {
@@ -24,16 +22,15 @@ export const useAuthStore = defineStore({
             })
                 .then(response => {
                     /* Update Pinia state */
-                    if (response){
+                    if (response) {
                         this.jwt_access = response.jwt_access
                         this.jwt_refresh = response.jwt_refresh
                         this.getUser()
-                        const cookie = useCookie('refresh', {maxAge: 60*60, httpOnly: true})
-                        if (cookie){
-                            cookie.value = response.jwt_refresh
+                        const cookie = useCookie('refresh', { maxAge: 60 * 60})
+                        if (cookie) {
+                            cookie.value = this.jwt_refresh
                         }
                     }
-                    /* Store user in local storage to keep them logged in between page refreshes */
                 })
                 .catch(error => { throw error })
         },
@@ -51,26 +48,25 @@ export const useAuthStore = defineStore({
                         this.jwt_access = response.jwt_access
                         this.jwt_refresh = response.jwt_refresh
                         this.getUser()
-                        const cookie = useCookie('refresh', { maxAge: 60 * 60, httpOnly: true })
+                        /*const cookie = useCookie('refresh', { maxAge: 60 * 60})
                         if (cookie) {
                             cookie.value = response.jwt_refresh
-                        }
+                        }*/
                     }
                 })
                 .catch(error => { throw error })
         },
-        async getUser(){
+        async getUser() {
             await $fetch(`/api/user/get-user`, {
                 method: 'POST',
                 headers: {
                     Authorization: this.jwt_access
                 }
             }).then(response => {
-                if (response && response.user_id != -1){
-                    if (response.expired){
+                if (response && response.user_id != -1) {
+                    if (response.expired) {
                         this.refreshToken().then(ret => {
-                            if (ret)
-                            {
+                            if (ret) {
                                 this.getUser()
                                 return
                             }
@@ -82,33 +78,28 @@ export const useAuthStore = defineStore({
                 }
             }).catch(error => { throw error })
         },
-        async refreshToken(): Promise<any>{
-            if (!this.jwt_refresh){
-                const cookie = useCookie('refresh', { maxAge: 60 * 60, httpOnly: true })
-                if (cookie.value){
-                    this.jwt_refresh = cookie.value
-                }
-            }
+        async refreshToken(): Promise<any> {
             await $fetch(`${baseUrl}/refresh`, {
                 method: 'POST',
                 body: {
                     refresh_token: this.jwt_refresh
                 }
             }).then(response => {
-                if (response){
+                if (response) {
                     this.jwt_access = response.access_token
                     return new Promise(resolve => resolve(true))
                 }
                 return new Promise(resolve => resolve(false))
 
             }).catch(error => { throw error })
-        }
         },
-        getters: {
-            isLoggedIn(state) {
-                if (state.user_id != -1) {
-                    return true
-                }
+    },
+    getters: {
+        isLoggedIn(state) {
+            if (state.user_id != -1) {
+                return true
             }
         }
+    },
+    persist: true
 })

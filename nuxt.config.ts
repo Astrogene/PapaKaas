@@ -8,12 +8,19 @@ export default defineNuxtConfig({
         },
     },
     modules: [
+        '@nuxt/content',
         '@pinia/nuxt',
+        '@pinia-plugin-persistedstate/nuxt',
     ],
     runtimeConfig: {
         secret: 'superdupersafesecret',
         
         public: { apiBase: '/api' }
+    },
+    piniaPersistedstate: {
+        cookieOptions: {
+            sameSite: 'strict',
+        }
     }
 })
 
