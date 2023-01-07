@@ -11,11 +11,18 @@ export default defineEventHandler(async (event) => {
     });
     if (user){
         if (user.isValidPassword(body.password)){
-            const token = jwt.sign({
+            const jwt_access = jwt.sign({
+                id: user.id,
+            }, runtimeConfig.secret, { expiresIn: '1m' });
+            const jwt_refresh = jwt.sign({
                 id: user.id,
                 auth_level: user.role
-            }, runtimeConfig.secret, { expiresIn: '1h' });
-            return token;
+            }, runtimeConfig.secret, { expiresIn: '5h' });
+            const res = {
+                jwt_access: jwt_access,
+                jwt_refresh: jwt_refresh
+            }
+            return res;
         }
     }
     return null;

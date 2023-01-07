@@ -1,13 +1,21 @@
 import { defineStore } from 'pinia'
-import jwt from 'jsonwebtoken'
 
 const baseUrl = '/api/auth'
 
 export const useAuthStore = defineStore({
     id: 'auth',
-    state: () => ({
-        token: JSON.parse(localStorage.getItem('token') || '{}'),
-    }),
+    state: () => { 
+        const cookie = useCookie('refresh', { maxAge: 60 * 60, httpOnly: true })
+        let cookie_value = cookie.value
+        return {
+        jwt_access: '',
+        jwt_refresh: cookie_value || '',
+        jwt_cookie: '',
+        user_id: -1,
+        user_role: '',
+        user_name: ''
+        }
+    },
     actions: {
         async login(loginForm: any) {
             await $fetch(`${baseUrl}/login`, {
@@ -16,15 +24,22 @@ export const useAuthStore = defineStore({
             })
                 .then(response => {
                     /* Update Pinia state */
-                    this.token = response
+                    if (response){
+                        this.jwt_access = response.jwt_access
+                        this.jwt_refresh = response.jwt_refresh
+                        this.getUser()
+                        const cookie = useCookie('refresh', {maxAge: 60*60, httpOnly: true})
+                        if (cookie){
+                            cookie.value = response.jwt_refresh
+                        }
+                    }
                     /* Store user in local storage to keep them logged in between page refreshes */
-                    localStorage.setItem('token', JSON.stringify(this.token))
                 })
                 .catch(error => { throw error })
         },
         logout() {
-            this.token = null
-            localStorage.removeItem('token')
+            this.jwt_access = ''
+            this.jwt_refresh = ''
         },
         async register(registerForm: any) {
             await $fetch(`${baseUrl}/register`, {
@@ -32,10 +47,68 @@ export const useAuthStore = defineStore({
                 body: registerForm
             })
                 .then(response => {
-                    this.token = response
-                    localStorage.setItem('token', JSON.stringify(this.token))
+                    if (response) {
+                        this.jwt_access = response.jwt_access
+                        this.jwt_refresh = response.jwt_refresh
+                        this.getUser()
+                        const cookie = useCookie('refresh', { maxAge: 60 * 60, httpOnly: true })
+                        if (cookie) {
+                            cookie.value = response.jwt_refresh
+                        }
+                    }
                 })
                 .catch(error => { throw error })
+        },
+        async getUser(){
+            await $fetch(`/api/user/get-user`, {
+                method: 'POST',
+                headers: {
+                    Authorization: this.jwt_access
+                }
+            }).then(response => {
+                if (response && response.user_id != -1){
+                    if (response.expired){
+                        this.refreshToken().then(ret => {
+                            if (ret)
+                            {
+                                this.getUser()
+                                return
+                            }
+                        })
+                    }
+                    this.user_id = response.user_id
+                    this.user_role = response.auth_level
+                    this.user_name = response.name
+                }
+            }).catch(error => { throw error })
+        },
+        async refreshToken(): Promise<any>{
+            if (!this.jwt_refresh){
+                const cookie = useCookie('refresh', { maxAge: 60 * 60, httpOnly: true })
+                if (cookie.value){
+                    this.jwt_refresh = cookie.value
+                }
+            }
+            await $fetch(`${baseUrl}/refresh`, {
+                method: 'POST',
+                body: {
+                    refresh_token: this.jwt_refresh
+                }
+            }).then(response => {
+                if (response){
+                    this.jwt_access = response.access_token
+                    return new Promise(resolve => resolve(true))
+                }
+                return new Promise(resolve => resolve(false))
+
+            }).catch(error => { throw error })
         }
-    }
+        },
+        getters: {
+            isLoggedIn(state) {
+                if (state.user_id != -1) {
+                    return true
+                }
+            }
+        }
 })

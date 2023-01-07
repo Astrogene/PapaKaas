@@ -1,6 +1,5 @@
-GET /admin/passwd?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiYXV0aF9sZXZlbCI6IlVTRVIiLCJpYXQiOjE2NzMwMDkyMjgsImV4cCI6MTY3MzAxMjgyOH0.06D0nfDycTykUNj6YLGEEY66_BT1tRxqB1RH0FAnOAI HTTP/1.1
+GET /admin/passwd HTTP/1.1
 Host: localhost:3000
 Content-Type: application/json
-Content-Length: 68
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjczMTAyMDA2LCJleHAiOjE2NzMxMDIwNjZ9.4_WlFRv6zyEnAQFfvfHsejMAjcGIGhGvOTfj-wuQYWk
 

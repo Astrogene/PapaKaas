@@ -1,15 +1,14 @@
 <template>
     <div class="flex w-full h-full flex-column">
         <h1>
-            {{ JSON.stringify(users, null, 2) }}
+            {{ users }}
         </h1>
     </div>
 </template>
 <script setup lang="ts">
-import { Users } from '~/models/database'
-const users:any = await Users.findAll();
-
-definePageMeta({
-    middleware: 'auth-admin'
+import { useAuthFetch } from '~~/composable/authfetch';
+let users = ref();
+useAuthFetch("/api/user/get-all-users").then(res =>{
+    users.value = res
 })
 </script>

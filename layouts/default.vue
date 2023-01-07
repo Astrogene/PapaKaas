@@ -14,8 +14,11 @@
                 <li class="px-4 py-2 mr-auto bg-green-400 hover:scale-110 hover:bg-green-500">
                     <NuxtLink  to="/about">Over</NuxtLink>
                 </li>
-                <li class="px-4 py-2 mr-4 bg-green-400 hover:scale-110 hover:bg-green-500">
+                <li v-if="!authStore.isLoggedIn" class="px-4 py-2 mr-4 bg-green-400 hover:scale-110 hover:bg-green-500">
                     <NuxtLink to="/login">Login</NuxtLink>
+                </li>
+                <li v-else>
+                    {{ authStore.user_name }}
                 </li>
             </ul>
         </nav>
@@ -46,3 +49,7 @@
     height: 10vh;
 }
 </style>
+<script setup lang="ts">
+import { useAuthStore } from '~~/stores/auth';
+const authStore = useAuthStore();
+</script>

@@ -1,0 +1,3 @@
+POST /api/auth/get-user HTTP/1.1
+Host: localhost:3000
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiYXV0aF9sZXZlbCI6IlVTRVIiLCJpYXQiOjE2NzMwOTM2ODAsImV4cCI6MTY3MzA5Mzc0MH0.Kym_YNbk5Uljb85cR-pJB3nHJp-e4j0dMBBqhiIRoUA

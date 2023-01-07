@@ -16,11 +16,18 @@ export default defineEventHandler(async (event) => {
                 username: body.username,
                 password: body.password,
             })
-            const token = jwt.sign({
-                id: user_new.id,
-                auth_level: user_new.role
-            }, runtimeConfig.secret, { expiresIn: '1h' });
-            return token
+            const jwt_access = jwt.sign({
+                id: user.id,
+            }, runtimeConfig.secret, { expiresIn: '1m' });
+            const jwt_refresh = jwt.sign({
+                id: user.id,
+                auth_level: user.role
+            }, runtimeConfig.secret, { expiresIn: '5h' });
+            const res = {
+                jwt_access: jwt_access,
+                jwt_refresh: jwt_refresh
+            }
+            return res
         }
     }
     return null;

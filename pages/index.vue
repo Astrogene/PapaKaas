@@ -45,8 +45,3 @@
     scroll-behavior: smooth;
 }
 </style>
-<script>
-export default {
-    auth: true
-}
-</script>

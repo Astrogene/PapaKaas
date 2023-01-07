@@ -1,0 +1,5 @@
+GET /api/user/get-all-users HTTP/1.1
+Host: localhost:3000
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjczMTAyNzE0LCJleHAiOjE2NzMxMDI3NzR9.o5Hh4XOMikoEYS6uaiWmtMNmKUqmMgNisTTVc9FDneI
+
