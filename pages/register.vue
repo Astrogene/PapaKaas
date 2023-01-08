@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { useAuthStore } from "../stores/auth";
-
-
+import { useAuthStore } from "../stores/auth"
 interface registerForm {
     username: string;
     password: string;

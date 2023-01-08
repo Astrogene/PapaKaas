@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import jwt from 'jsonwebtoken'
 
 const baseUrl = '/api/auth'
 
@@ -8,10 +9,12 @@ export const useAuthStore = defineStore({
         return {
             jwt_access: '',
             jwt_refresh: '',
-            jwt_cookie: '',
-            user_id: -1,
-            user_role: '',
-            user_name: ''
+            user: {
+                loggedIn: false,
+                id: -1,
+                role: '',
+                name: ''
+            }
         }
     },
     actions: {
@@ -25,14 +28,10 @@ export const useAuthStore = defineStore({
                     if (response) {
                         this.jwt_access = response.jwt_access
                         this.jwt_refresh = response.jwt_refresh
-                        this.getUser()
-                        const cookie = useCookie('refresh', { maxAge: 60 * 60})
-                        if (cookie) {
-                            cookie.value = this.jwt_refresh
-                        }
                     }
                 })
                 .catch(error => { throw error })
+            await this.setUser()
         },
         logout() {
             this.jwt_access = ''
@@ -47,36 +46,9 @@ export const useAuthStore = defineStore({
                     if (response) {
                         this.jwt_access = response.jwt_access
                         this.jwt_refresh = response.jwt_refresh
-                        this.getUser()
-                        /*const cookie = useCookie('refresh', { maxAge: 60 * 60})
-                        if (cookie) {
-                            cookie.value = response.jwt_refresh
-                        }*/
                     }
                 })
                 .catch(error => { throw error })
-        },
-        async getUser() {
-            await $fetch(`/api/user/get-user`, {
-                method: 'POST',
-                headers: {
-                    Authorization: this.jwt_access
-                }
-            }).then(response => {
-                if (response && response.user_id != -1) {
-                    if (response.expired) {
-                        this.refreshToken().then(ret => {
-                            if (ret) {
-                                this.getUser()
-                                return
-                            }
-                        })
-                    }
-                    this.user_id = response.user_id
-                    this.user_role = response.auth_level
-                    this.user_name = response.name
-                }
-            }).catch(error => { throw error })
         },
         async refreshToken(): Promise<any> {
             await $fetch(`${baseUrl}/refresh`, {
@@ -92,14 +64,36 @@ export const useAuthStore = defineStore({
                 return new Promise(resolve => resolve(false))
 
             }).catch(error => { throw error })
+            await this.setUser()
         },
-    },
-    getters: {
-        isLoggedIn(state) {
-            if (state.user_id != -1) {
-                return true
+        async setUser() {
+            let user_id = -1, role = '', name = '', loggedIn = false
+            await $fetch('/api/user/get-user', {
+                method: 'POST',
+                headers: {
+                    authorization: this.jwt_access
+                }
+            }).then(response => {
+                if (response && response.user_id && response.auth_level && response.name && !response.expired){
+                    user_id = response.user_id 
+                    role = response.auth_level
+                    name = response.name
+                    loggedIn = true
+                }
+            })
+            if (!loggedIn && this.jwt_refresh){
+                if (await this.refreshToken()){
+                    this.setUser()
+                }
+                return
             }
+            this.user.id = user_id
+            this.user.role = role
+            this.user.name = name
+            this.user.loggedIn = loggedIn
         }
     },
-    persist: true
+    persist: {
+        paths: ['jwt_access', 'jwt_refresh']
+    }
 })

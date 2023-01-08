@@ -10,7 +10,7 @@ export const useAuthFetch = (url: string, opts?: any | undefined | null) => {
     });
     if (fetched.error){
         throw createError({statusCode: 404, message: "Not found"})
-        return
+
     }
     return fetched
 };
