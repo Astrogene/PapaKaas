@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken'
 export default defineEventHandler(async (event) => {
     const runtimeConfig = useRuntimeConfig()
     const body = await readBody(event);
-    const user: any = (await Users()).findOne({
+    const user: any = await (await Users()).findOne({
         where: {
             username: body.username
         }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useAuthStore } from '../stores/auth';
+import { useAuthStore } from '../../stores/auth';
 
 interface loginForm {
   username: string;
@@ -31,9 +31,12 @@ function login() {
 </script>
 
 <template>
-  <div class="w-full h-full">
+  <div class="flex flex-col items-center justify-center w-full h-full">
+    <h1 class="pb-6 text-4xl">
+      Login
+    </h1>
     <form
-      class="flex flex-col justify-center items-center my-4 h-min w-full"
+      class="flex flex-col items-center justify-center"
       @submit.prevent="login"
     >
       <div class="my-4 username">
@@ -41,7 +44,7 @@ function login() {
           v-model="loginForm.username"
           required
           type="username"
-          class="border-b-4"
+          class="p-4 border-4 border-green-300 rounded-lg outline-none focus:border-green-500"
           placeholder="username"
         />
       </div>
@@ -50,11 +53,15 @@ function login() {
           v-model="loginForm.password"
           required
           type="password"
-          class="border-b-4"
+          class="p-4 border-4 border-green-300 rounded-lg outline-none focus:border-green-500"
           placeholder="password"
         />
       </div>
-      <button type="submit" class="rounded-xl border-4 py-4 px-16">Login</button>
+      <button type="submit" class="px-16 py-4 text-center transition duration-200 border-4 border-green-300 rounded-xl hover:bg-green-400 hover:scale-110">Login</button>
     </form>
+    <p class="py-8">
+      Not registered?
+      <NuxtLink to="/auth/register">Create an account</NuxtLink>
+    </p>
   </div>
 </template>

@@ -5,14 +5,14 @@ export default defineEventHandler(async (event) => {
     const runtimeConfig = useRuntimeConfig()
     console.log("Registering new user")
     const body = await readBody(event);
-    const user = (await Users()).findOne({
+    const user = await (await Users()).findOne({
         where: {
             username: body.username
         }
     });
     if (!user) {
         if (body.password && body.username) {
-            const user_new: any = (await Users()).create({
+            const user_new: any = await (await Users()).create({
                 username: body.username,
                 password: body.password,
             })

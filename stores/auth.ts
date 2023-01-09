@@ -49,6 +49,7 @@ export const useAuthStore = defineStore({
                     }
                 })
                 .catch(error => { throw error })
+            await this.setUser()
         },
         async refreshToken(): Promise<any> {
             await $fetch(`${baseUrl}/refresh`, {

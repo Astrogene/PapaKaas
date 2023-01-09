@@ -1,6 +1,6 @@
 <template>
     <a href="#PapaKaas" class="absolute z-10 px-4 py-2 bg-green-400 border rounded see h-max hover:-translate-x-1/2 hover:-translate-y-1/2 hover:scale-110 hover:bg-green-500 ">
-        <span class="text-4xl text-center">
+        <span class="text-4xl text-center text-black no-underline hover:no-underline">
             Zie meer
         </span>
     </a>
