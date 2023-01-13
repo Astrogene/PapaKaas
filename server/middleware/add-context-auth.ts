@@ -23,12 +23,14 @@ export default defineEventHandler(async (event) => {
     );
     if (id) {
       user_name = await Users.findOne({ where: { id: id } });
-      event.context.auth = {
-        id: id,
-        auth_level: user_name.role,
-        name: user_name.username,
-        expired: expired,
-      };
+      if (user_name){
+        event.context.auth = {
+          id: id,
+          auth_level: user_name.role,
+          name: user_name.username,
+          expired: expired,
+        };
+      }
     } else {
       event.context.auth = {
         id: -1,
