@@ -1,18 +1,29 @@
 <template>
-    <v-file-input outlined type="file" v-model="image" name="filename" accept="image/*" @change="onFilePicked" />
-    <v-img class="child-img" v-bind:src="image" :style="{ backgroundImage: 'url(' + previewFiles + ')'}"></v-img>
+    <ul v-for="image in images">
+        <img class="child-img" v-bind:src="image" />
+    </ul>
+    <input multiple outlined type="file" ref="file" accept="image/*" @change="previewFile" />
+    <button class="border-4" @click="uploaded ? upload() : null" :disabled="uploaded">Upload</button>
 </template>
-<script setup lang="ts">
-async function onFilePicked(e: any){
-    const file = e;
-    if(!file) return;
-    const readData = (f) => {
-        new Promise((resolve) => {
-            const reader = new FileReader()
-            reader.onloadend = () =>
-        })
+<script>
+export default {
+    data: () => ({
+        images: [],
+        uploaded: false
+    }),
+    methods: {
+        previewFile() {
+            const images_d = this.$refs.file.files
+            Array.from(images_d).forEach((item) => {
+               this.images.push(URL.createObjectURL(item))
+            })
+            uploaded = true
+        },
+        async upload() {
+            alert("uploading")
+        }
     }
-
 }
+
 //https://dev.to/michellebuchiokonicha/how-to-handle-file-uploadimages-documents-etc-in-nuxtjs-and-vuejs-with-vuex-and-axios-api-57ci
 </script>
