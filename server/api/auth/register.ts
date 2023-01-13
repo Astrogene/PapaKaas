@@ -18,15 +18,15 @@ export default defineEventHandler(async (event) => {
       });
       const jwt_access = jwt.sign(
         {
-          id: user.id,
+          id: user_new.id,
         },
         runtimeConfig.secret,
         { expiresIn: '1m' }
       );
       const jwt_refresh = jwt.sign(
         {
-          id: user.id,
-          auth_level: user.role,
+          id: user_new.id,
+          auth_level: user_new.role,
         },
         runtimeConfig.secret,
         { expiresIn: '5h' }
