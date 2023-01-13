@@ -14,5 +14,5 @@ async function onFilePicked(e: any){
     }
 
 }
-
+//https://dev.to/michellebuchiokonicha/how-to-handle-file-uploadimages-documents-etc-in-nuxtjs-and-vuejs-with-vuex-and-axios-api-57ci
 </script>
