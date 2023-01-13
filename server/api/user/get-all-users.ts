@@ -1,8 +1,8 @@
-import { Users } from "~~/models/database";
+import Users from '~~/models/Users';
 
 export default defineEventHandler(async (event) => {
-    console.log(event.context.auth.auth_level)
-    if (event.context.auth.auth_level == "ADMIN"){
-        return await (await Users()).findAll()
-    }
+  console.log(event.context.auth.auth_level);
+  if (event.context.auth.auth_level == 'ADMIN') {
+    return await Users.findAll();
+  }
 });
