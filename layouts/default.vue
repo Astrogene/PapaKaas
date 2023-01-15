@@ -9,7 +9,7 @@
                         </NuxtLink>
                     </li>
                     <li class="px-4 py-2 ml-auto bg-green-400 hover:scale-110 hover:bg-green-500">
-                        <NuxtLink to="/current">Huidig</NuxtLink>
+                        <NuxtLink to="/galery">Galerij</NuxtLink>
                     </li>
                     <li class="px-4 py-2 mx-4 bg-green-400 sm:mx-16 hover:scale-110 hover:bg-green-500">
                         <NuxtLink to="/contact">Contact</NuxtLink>

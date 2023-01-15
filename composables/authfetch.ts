@@ -8,9 +8,5 @@ export const useAuthFetch = (url: string, opts?: any | undefined | null) => {
             Authorization: `Bearer ${authStore.jwt_access}`,
         },
     });
-    if (fetched.error){
-        throw createError({statusCode: 404, message: "Not found"})
-
-    }
     return fetched
 };

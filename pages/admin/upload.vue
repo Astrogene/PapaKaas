@@ -1,35 +1,61 @@
 <template>
+    <form ref="data">
+        <h1>Title</h1>
+        <input type="text" name="title" outlined @change="updateState"/>
+        <h1>Markdown</h1>
+        <textarea spellcheck="false" class="w-full h-96" name="text" value="---
+description: Beschrijving van het artikel
+thumbnail: Naam van het plaatje.png
+---
+Dit is pas zichtbaar als je op de pagina bent
+::article-image
+---
+src: Dit is de titel/plaatje.png
+---
+::
+"></textarea>>
+        <h1 class="mt-4">Images</h1>
+        <input multiple outlined type="file" name="images" ref="files" accept="image/*" @change="previewFile" />
+    </form>
     <ul v-for="image in images">
         <img class="child-img" v-bind:src="image" />
     </ul>
-    <form ref="form">
-        <input multiple outlined type="file" ref="file" accept="image/*" @change="previewFile" />
-    </form>
-    <button class="border-4" @click="uploaded ? upload() : null" :disabled="uploaded">Upload</button>
+    <button @click="uploaded ? upload() : null" >Upload</button>
 </template>
-<script>
+<script>/*
+definePageMeta({
+    middleware: "require-admin"
+})*/
 export default {
     data: () => ({
         images: [],
         formData: null,
-        uploaded: false
+        uploaded: false,
     }),
     methods: {
+        updateState(){
+            this.formData = new FormData(this.$refs.data)
+            if (this.formData.get("title") && this.formData.get("text")) {
+                this.uploaded = true
+            }
+            else {
+                this.uploaded = false
+            }
+        },
         previewFile() {
-            const images_d = this.$refs.file.files
-            this.formData = new FormData(this.$refs.form)
+            this.formData = new FormData(this.$refs.data)
             this.images = []
-            Array.from(images_d).forEach((item, index) => {
-               this.images.push(URL.createObjectURL(item))
-               this.formData.append(`file[${index}]`, item)
+            Array.from(this.$refs.files.files).forEach( (value) => {
+                this.images.push(URL.createObjectURL(value))
             })
-            uploaded = true
+            this.updateState()
         },
         async upload() {
-            await useAuthFetch('/api/admin/store-new-images', {
+            await useAuthFetch('/api/admin/store-new-post', {
                 method: "POST",
                 body: this.formData
             })
+            await navigateTo("/")
         }
     }
 }
