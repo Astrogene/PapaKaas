@@ -4,9 +4,11 @@
         <input type="text" name="title" outlined @change="updateState"/>
         <h1>Markdown</h1>
         <textarea spellcheck="false" class="w-full h-96" name="text" value="---
-description: Beschrijving van het artikel
 thumbnail: Naam van het plaatje.png
 ---
+Beschrijving van het artikel
+
+<!--more-->
 Dit is pas zichtbaar als je op de pagina bent
 ::article-image
 ---
@@ -51,6 +53,7 @@ export default {
             this.updateState()
         },
         async upload() {
+            this.updateState()
             await useAuthFetch('/api/admin/store-new-post', {
                 method: "POST",
                 body: this.formData

@@ -19,7 +19,7 @@ export default defineEventHandler(async (event) => {
                     });
                     return
                 }
-                newPath = `${path.join("content/posts", fields.title as string)}`;
+                newPath = `${path.join("content/posts", (fields.title as string).toLowerCase())}`;
                 if (!fs.existsSync(newPath)) {
                     fs.mkdirSync(newPath);
                 }
@@ -29,7 +29,7 @@ export default defineEventHandler(async (event) => {
                     })
                     return
                 }
-                newPath = `${path.join("public/posts", fields.title as string)}`
+                newPath = `${path.join("public/posts", (fields.title as string).toLowerCase())}`
                 if (!fs.existsSync(newPath)) {
                     fs.mkdirSync(newPath);
                 }
@@ -44,7 +44,7 @@ export default defineEventHandler(async (event) => {
                     ((files.images as unknown as formidable.File).mimetype || "").startsWith("image/")) {
                         let imageName = (files.images as unknown as formidable.File).originalFilename;
                         oldPath = (files.images as unknown as formidable.File).filepath;
-                        newPath = `${path.join("public/posts", fields.title as string, imageName || "")}`;
+                        newPath = `${path.join("public/posts", (fields.title as string).toLowerCase(), imageName || "")}`;
                         fs.copyFileSync(oldPath, newPath);
                     }
                 }
@@ -53,7 +53,7 @@ export default defineEventHandler(async (event) => {
                         if (element.mimetype && element.mimetype.startsWith("image/")) {
                             let imageName = element.originalFilename;
                             oldPath = element.filepath;
-                            newPath = `${path.join("public/posts", fields.title as string, imageName || "")}`;
+                            newPath = `${path.join("public/posts", (fields.title as string).toLowerCase(), imageName || "")}`;
                             fs.copyFileSync(oldPath, newPath);
                         }
                         else {
@@ -65,7 +65,7 @@ export default defineEventHandler(async (event) => {
                         }
                     });
                 }
-                newPath = `${path.join("content/posts", fields.title as string, fields.title as string )}`;
+                newPath = `${path.join("content/posts", (fields.title as string).toLowerCase(), (fields.title as string).toLowerCase() )}`;
                 fs.writeFileSync(newPath + ".md", fields.text as string)
                 resolve({
                     status: "200"
