@@ -1,7 +1,5 @@
 <template>
-    <div>
-        <img :src="imgSrc()" :alt="alt || 'failed to load image'" class="article-image" />
-    </div>
+    <img :src="imgSrc()" :alt="alt || 'failed to load image'" class="article-image" />
 </template>
 <script lang="ts">
 
