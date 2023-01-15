@@ -19,7 +19,7 @@ export default defineEventHandler(async (event) => {
                     });
                     return
                 }
-                newPath = `${path.join("content/posts", (fields.title as string).toLowerCase())}`;
+                newPath = `${path.join("content/posts", (fields.title as string).toLowerCase().replaceAll(' ', '-'))}`;
                 if (!fs.existsSync(newPath)) {
                     fs.mkdirSync(newPath);
                 }
@@ -29,7 +29,7 @@ export default defineEventHandler(async (event) => {
                     })
                     return
                 }
-                newPath = `${path.join("public/posts", (fields.title as string).toLowerCase())}`
+                newPath = `${path.join("public/posts", (fields.title as string).toLowerCase().replaceAll(' ', '-'))}`
                 if (!fs.existsSync(newPath)) {
                     fs.mkdirSync(newPath);
                 }
@@ -44,7 +44,7 @@ export default defineEventHandler(async (event) => {
                     ((files.images as unknown as formidable.File).mimetype || "").startsWith("image/")) {
                         let imageName = (files.images as unknown as formidable.File).originalFilename;
                         oldPath = (files.images as unknown as formidable.File).filepath;
-                        newPath = `${path.join("public/posts", (fields.title as string).toLowerCase(), imageName || "")}`;
+                        newPath = `${path.join("public/posts", (fields.title as string).toLowerCase().replaceAll(' ', '-'), imageName || "")}`;
                         fs.copyFileSync(oldPath, newPath);
                     }
                 }
@@ -53,7 +53,7 @@ export default defineEventHandler(async (event) => {
                         if (element.mimetype && element.mimetype.startsWith("image/")) {
                             let imageName = element.originalFilename;
                             oldPath = element.filepath;
-                            newPath = `${path.join("public/posts", (fields.title as string).toLowerCase(), imageName || "")}`;
+                            newPath = `${path.join("public/posts", (fields.title as string).toLowerCase().replaceAll(' ', '-'), imageName || "")}`;
                             fs.copyFileSync(oldPath, newPath);
                         }
                         else {

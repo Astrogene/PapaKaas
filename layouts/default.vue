@@ -60,12 +60,12 @@
 .footer {
     flex: 0 1 40px;
 }
-.main a {
+.main .link {
     color: rgb(0, 172, 0);
     text-decoration-line: none;
     transition: all 200ms ease-in-out;
 }
-.main a:hover {
+.main .link:hover {
     text-decoration-line: underline;
     color: rgb(0, 97, 0);
 }
