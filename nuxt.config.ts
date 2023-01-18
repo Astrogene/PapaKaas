@@ -10,8 +10,6 @@ export default defineNuxtConfig({
     },
     modules: [
         '@nuxt/content',
-        '@pinia/nuxt',
-        '@pinia-plugin-persistedstate/nuxt',
         "formidable",
     ],
     runtimeConfig: {
@@ -19,10 +17,5 @@ export default defineNuxtConfig({
         
         public: { apiBase: '/api' }
     },
-    piniaPersistedstate: {
-        cookieOptions: {
-            sameSite: 'strict',
-        }
-    }
 })
 

@@ -60,12 +60,9 @@
     </header>
 </template>
 <script setup >
-const { data } = await useAsyncData(async (nuxtApp) => {
-    // fetch and return all "example" records...
-    const records = await nuxtApp.$pb.authStore;
-    return records
-})
-const user = data.model
+import { usePocketBase } from '~~/composables/pocketbase';
+
+const user = usePocketBase().authStore.model
 let show = ref(false)
 </script>
 <style>
