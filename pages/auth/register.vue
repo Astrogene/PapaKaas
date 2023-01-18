@@ -49,7 +49,7 @@ function register() {
         </form>
         <p class="py-8">
             Already have an account?
-            <NuxtLink to="/auth/login">Login</NuxtLink>
+            <NuxtLink class="link" to="/auth/login">Login</NuxtLink>
         </p>
     </div>
 </template>

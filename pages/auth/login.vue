@@ -61,7 +61,7 @@ function login() {
     </form>
     <p class="py-8">
       Not registered?
-      <NuxtLink to="/auth/register">Create an account</NuxtLink>
+      <NuxtLink class="link" to="/auth/register">Create an account</NuxtLink>
     </p>
   </div>
 </template>

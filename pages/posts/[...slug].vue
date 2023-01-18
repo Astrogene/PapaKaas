@@ -1,5 +1,5 @@
 <template>
-    <ContentDoc class="doc"/>
+    <ContentDoc class="doc sm:mx-10 md:mx-32 lg:mx-64"/>
 </template>
 <style>
 .doc h1 {
@@ -8,7 +8,6 @@
 }
 .doc {
     text-align: justify;
-    margin: 0 10rem 0 10rem;
     margin-top: 2rem;
 }
 </style>

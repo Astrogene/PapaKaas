@@ -6,7 +6,7 @@
         <textarea spellcheck="false" class="w-full h-96" name="text" value="---
 thumbnail: Naam van het plaatje.png
 ---
-Beschrijving van het artikel
+De eerste paar paragrafen die worden getoond op galerij
 
 <!--more-->
 Dit is pas zichtbaar als je op de pagina bent
