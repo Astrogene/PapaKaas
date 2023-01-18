@@ -59,11 +59,13 @@
             </nav>
     </header>
 </template>
-<script setup lang="ts">
-import { storeToRefs } from 'pinia';
-import { useAuthStore } from '~~/stores/auth';
-
-const { user } = storeToRefs(useAuthStore())
+<script setup >
+const { data } = await useAsyncData(async (nuxtApp) => {
+    // fetch and return all "example" records...
+    const records = await nuxtApp.$pb.authStore;
+    return records
+})
+const user = data.model
 let show = ref(false)
 </script>
 <style>

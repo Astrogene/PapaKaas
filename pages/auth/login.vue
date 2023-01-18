@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useAuthStore } from '../../stores/auth';
 
 interface loginForm {
   username: string;
@@ -19,14 +18,16 @@ function login() {
   if (process.server) {
     return;
   }
-  const authStore = useAuthStore();
   const router = useRouter();
-  authStore
-    .login(loginForm)
-    .then((_response) => {
-      router.push('/');
-    })
-    .catch((error) => console.log('API error', error));
+  $fetch('/api/auth/login', {
+    method: "POST",
+    body: {
+      username: loginForm.username,
+      password: loginForm.password
+    }
+  }).then(() => {
+    router.push('/')
+  })
 }
 </script>
 
