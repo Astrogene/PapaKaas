@@ -26,10 +26,7 @@
 }
 .main {
     flex: 1 1 auto;
-}/*
-.footer {
-    flex: 0 1 40px;
-}*/
+}
 .main .link {
     color: rgb(0, 172, 0);
     text-decoration-line: none;
