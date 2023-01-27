@@ -23,6 +23,11 @@ export default defineNuxtConfig({
         cookieOptions: {
             sameSite: 'strict',
         }
-    }
+    },
+    content: {
+        markdown: {
+            remarkPlugins: ['remark-reading-time'],
+        },
+    },
 })
 

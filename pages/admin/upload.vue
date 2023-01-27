@@ -15,6 +15,14 @@ Dit is pas zichtbaar als je op de pagina bent
 src: Dit is de titel/plaatje.png
 ---
 ::
+
+# Dit is een h1
+## Dit is een h2
+### Dit is een h3
+enz.
+
+
+
 "></textarea>>
         <h1 class="mt-4">Images</h1>
         <input multiple outlined type="file" name="images" ref="files" accept="image/*" @change="previewFile" />

@@ -1,13 +1,28 @@
 <template>
-    <ContentDoc class="doc sm:mx-10 md:mx-32 lg:mx-64"/>
+    <ContentDoc v-slot="{ doc }">
+        <h1 class="mx-auto mt-8 text-6xl text-center">{{ doc.title }}</h1>
+        <p class="mx-auto text-lg text-center">{{ doc.readingTime.text }}</p>
+        <ContentRenderer class="sm:mx-10 md:mx-32 lg:mx-64 doc" :value="doc" />
+    </ContentDoc>
 </template>
 <style>
 .doc h1 {
-    font-size: 1.125rem /* 18px */  ;
-    line-height: 1.75rem /* 28px */    ;
+    margin-top: 4rem;
+    font-size: 4em;
+}
+.doc h2 {
+    margin-top: 2rem;
+    font-size: 2em;
+}
+.doc h3 {
+    margin-top: 1rem;
+    font-size: 1em;
 }
 .doc {
     text-align: justify;
     margin-top: 2rem;
+}
+* {
+    scroll-behavior: smooth;
 }
 </style>
