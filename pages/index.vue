@@ -4,8 +4,8 @@
             Zie meer
         </span>
     </a>
-    <div class="grid landing">
-        <img src="~/assets/images/landingpage.jpg" alt="temp" class="block max-w-full max-h-full mr-auto"/>
+    <div class="landing">
+        <img src="~/assets/images/landingpage.jpg" alt="temp" class="mx-auto block max-w-full max-h-full mr-auto"/>
     </div>
     <article>
         <h1 class="mt-16 text-5xl text-center scroll-smooth" id="PapaKaas">
