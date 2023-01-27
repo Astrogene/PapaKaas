@@ -11,7 +11,7 @@
                         </div>
                         <div class="flex items-center justify-center desc">
                             <p class="px-8 align-middle">
-                                {{ document.description }}
+                                <ContentRenderer excerpt=true :value="document" />
                             </p>
                         </div>
                     </li>

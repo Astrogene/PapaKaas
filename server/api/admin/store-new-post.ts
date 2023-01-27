@@ -65,7 +65,7 @@ export default defineEventHandler(async (event) => {
                         }
                     });
                 }
-                newPath = `${path.join("content/posts", (fields.title as string).toLowerCase(), (fields.title as string).toLowerCase() )}`;
+                newPath = `${path.join("content/posts", (fields.title as string).toLowerCase().replaceAll(' ', '-'), (fields.title as string).toLowerCase().replaceAll(' ', '-') )}`;
                 fs.writeFileSync(newPath + ".md", fields.text as string)
                 resolve({
                     status: "200"
