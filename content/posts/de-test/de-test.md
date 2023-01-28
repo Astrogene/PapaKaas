@@ -1,7 +1,7 @@
 ---
 thumbnail: a.png
 ---
-Beschrijving van het artikel
+Beschrijving van het artikel <br/>
 Meerdere lijnen?
 <!--more-->
 ::time-line
