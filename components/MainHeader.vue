@@ -45,8 +45,7 @@
                         <ul class="flex flex-col w-full text-2xl text-center top-16">
                             <NuxtLink class="px-4 py-8 mx-8 my-2 bg-green-600 border-y-2 hover:scale-110 hover:bg-green-700" @click="show = false" to="/galery">Galerij</NuxtLink>
                             <NuxtLink class="px-4 py-8 mx-8 my-2 bg-green-600 border-y-2 hover:scale-110 hover:bg-green-700" @click="show = false" to="/contact">Contact</NuxtLink>
-                            <NuxtLink class="px-4 py-8 mx-8 my-2 bg-green-600 border-y-2 hover:scale-110 hover:bg-green-700" @click="show = false"
-                                to="/about">Over</NuxtLink>
+                            <NuxtLink class="px-4 py-8 mx-8 my-2 bg-green-600 border-y-2 hover:scale-110 hover:bg-green-700" @click="show = false" to="/about">Over</NuxtLink>
                             <NuxtLink  v-if="!user.loggedIn" class="px-4 py-8 mx-8 my-2 bg-green-600 border-y-2 hover:scale-110 hover:bg-green-700" @click="show = false"
                                         to="/auth/login">Login</NuxtLink>
                             <li class="my-2 text-green-900 " v-else>

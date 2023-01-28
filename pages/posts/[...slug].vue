@@ -1,7 +1,14 @@
 <template>
     <ContentDoc v-slot="{ doc }">
         <h1 class="mx-auto mt-8 text-6xl text-center">{{ doc.title }}</h1>
-        <p class="mx-auto text-lg text-center">{{ doc.readingTime.text }}</p>
+        <p class="mx-auto text-lg text-center">
+            {{ doc.readingTime ? doc.readingTime.text : "error" }}
+            |
+            {{ doc.createdAt ? "Created - " + new Date(doc.createdAt).toLocaleDateString() : "error" }}
+            |
+            {{ doc.updatedAt ? "Updated - " + new Date(doc.updatedAt).toLocaleDateString() : "error" }}
+        </p>
+        
         <ContentRenderer class="sm:mx-10 md:mx-32 lg:mx-64 doc" :value="doc" />
     </ContentDoc>
 </template>

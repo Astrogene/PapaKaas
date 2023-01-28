@@ -1,3 +1,4 @@
+import readingTime from 'reading-time'
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     css: ['~/assets/css/main.css'],
@@ -23,11 +24,6 @@ export default defineNuxtConfig({
         cookieOptions: {
             sameSite: 'strict',
         }
-    },
-    content: {
-        markdown: {
-            remarkPlugins: ['remark-reading-time'],
-        },
-    },
+    }
 })
 
