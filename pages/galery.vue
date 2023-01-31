@@ -1,5 +1,5 @@
 <template>
-    <div class="mx-4 mt-8 mb-8">
+    <div class="mx-8 mt-8 mb-8">
         <ul class="grid grid-rows-5 gap-8 list-none md:grid-cols-3 lg:grid-cols-4 grid-flow-cols-dense ">
             <div v-for="document in data">
                 <NuxtLink :to="'/posts/' + document.title.toLowerCase().replaceAll(' ', '-') + '/' + document.title.toLowerCase().replaceAll(' ', '-')">
