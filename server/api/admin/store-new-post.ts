@@ -3,7 +3,7 @@ import fs from "fs";
 import path from "path";
 
 export default defineEventHandler(async (event) => {
-  /*  if (event.context.auth.auth_level == 'ADMIN') {*/
+    if (event.context.auth.auth_level == 'ADMIN') {
         const form = formidable({ multiples: true });
         let oldPath = "";
         let newPath = "";
@@ -74,5 +74,5 @@ export default defineEventHandler(async (event) => {
         });
         console.log(data)
         return data;
-    /*}*/
+    }
 })

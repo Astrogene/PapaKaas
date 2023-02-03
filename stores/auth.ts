@@ -65,7 +65,6 @@ export const useAuthStore = defineStore({
                 return new Promise(resolve => resolve(false))
 
             }).catch(error => { throw error })
-            await this.setUser()
         },
         async setUser() {
             let user_id = -1, role = '', name = '', loggedIn = false
@@ -75,7 +74,7 @@ export const useAuthStore = defineStore({
                     authorization: this.jwt_access
                 }
             }).then(response => {
-                if (response && response.user_id && response.auth_level && response.name && !response.expired){
+                if (response && response.user_id && response.auth_level && response.name){
                     user_id = response.user_id 
                     role = response.auth_level
                     name = response.name

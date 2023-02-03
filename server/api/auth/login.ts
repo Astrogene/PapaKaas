@@ -36,11 +36,7 @@ export default defineEventHandler(async (event) => {
       return res;
     }
   }
-  console.log('ran');
-  if (
-    body.username == runtimeConfig.username &&
-    body.password == runtimeConfig.password
-  ) {
+  if (body.username == runtimeConfig.username && body.password == runtimeConfig.password) {
     const jwt_access = jwt.sign(
       {
         id: -2,

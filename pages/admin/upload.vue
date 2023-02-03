@@ -32,10 +32,10 @@ enz.
     </ul>
     <button @click="uploaded ? upload() : null" >Upload</button>
 </template>
-<script>/*
+<script>
 definePageMeta({
     middleware: "require-admin"
-})*/
+})
 export default {
     data: () => ({
         images: [],
