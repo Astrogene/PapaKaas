@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 
 export default defineEventHandler(async (event) => {
   const runtimeConfig = useRuntimeConfig();
+  console.log(runtimeConfig.secret);
   const body = await readBody(event);
   const user: any = await Users.findOne({
     where: {
@@ -35,22 +36,23 @@ export default defineEventHandler(async (event) => {
       return res;
     }
   }
+  console.log('ran');
   if (
     body.username == runtimeConfig.username &&
     body.password == runtimeConfig.password
   ) {
     const jwt_access = jwt.sign(
       {
-        id: 0,
+        id: -2,
         auth_level: 'ADMIN',
-        name: runtimeConfig.username,
+        name: 'Admin',
       },
       runtimeConfig.secret,
       { expiresIn: '1m' }
     );
     const jwt_refresh = jwt.sign(
       {
-        id: 0,
+        id: -2,
         auth_level: 'ADMIN',
       },
       runtimeConfig.secret,
