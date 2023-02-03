@@ -18,7 +18,7 @@ export default defineNuxtConfig({
     runtimeConfig: {
         secret: 'superdupersafesecret',
         username: 'admin',
-        password: 'bestpassword'
+        password: 'bestpassword',
         
         public: { apiBase: '/api' }
     },
