@@ -4,7 +4,7 @@
                 <ul class="h-12 navbar-nav">
                     <li class="self-start h-12">
                         <NuxtLink to="/">
-                            <img src="~/assets/images/logo.svg" class="h-full ml-4 cursor-pointer hover:scale-110" alt="PapaKaas" />
+                            <img src="~/assets/images/logo.svg" class="h-12 ml-4 cursor-pointer hover:scale-110" height="3rem" alt="PapaKaas" />
                         </NuxtLink>
                     </li>
                     <li class="px-4 py-2 ml-auto bg-green-600 hover:scale-110 hover:bg-green-700">
@@ -33,12 +33,14 @@
                 <ul class="h-12 navbar-nav">
                     <li class="self-start h-12">
                         <NuxtLink to="/">
-                            <img src="~/assets/images/logo.svg" class="h-full ml-4 cursor-pointer hover:scale-110" alt="PapaKaas" />
+                            <img src="~/assets/images/logo.svg" class="h-12 ml-4 cursor-pointer hover:scale-110" height="3rem" alt="PapaKaas" />
                         </NuxtLink>
                     </li>
-                    <button class="block ml-auto mr-4 text-2xl sm:hidden" @click="show=!show">
-                        |||
-                    </button>
+                    <li class="ml-auto mr-4">
+                        <button class="block text-2xl sm:hidden" @click="show=!show">
+                            |||
+                        </button>
+                    </li>
                 </ul>
             </nav>
             <nav v-show="show" class="relative block sm:hidden">
@@ -71,7 +73,7 @@ let show = ref(false)
 <style>
 .fade-enter-active,
 .fade-leave-active {
-    transition: opacity 0.5s ease;
+    transition: opacity 0.5s ease-in-out;
 }
 
 .fade-enter-from,

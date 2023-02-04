@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-col h-full">
         <MainHeader></MainHeader>
-        <main class="main bg-slate-700" >
+        <main class="text-slate-300 main bg-slate-700" >
             <slot>
             </slot>
         </main>

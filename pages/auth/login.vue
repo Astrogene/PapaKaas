@@ -43,7 +43,7 @@ function login() {
           v-model="loginForm.username"
           required
           type="username"
-          class="p-4 border-4 border-green-300 rounded-lg outline-none focus:border-green-500"
+          class="p-4 border-4 border-green-300 rounded-lg outline-none bg-slate-800 focus:border-green-500"
           placeholder="username"
         />
       </div>
@@ -52,7 +52,7 @@ function login() {
           v-model="loginForm.password"
           required
           type="password"
-          class="p-4 border-4 border-green-300 rounded-lg outline-none focus:border-green-500"
+          class="p-4 border-4 border-green-300 rounded-lg outline-none bg-slate-800 focus:border-green-500"
           placeholder="password"
         />
       </div>

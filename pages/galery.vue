@@ -8,13 +8,13 @@
                             <h1 class="text-2xl text-center">{{ document.title }}</h1>
                             <p class="text-center text-md">
                             {{ document.readingTime ? document.readingTime.text : "error" }}
+                            </p>
                             <p class="text-center text-md">
                               {{ document.createdAt ? "Created " + new Date(document.createdAt).toLocaleDateString() : "error" }}
                               |
                               {{ document.updatedAt ? "Updated " + new Date(document.updatedAt).toLocaleDateString() : "error" }}
                             </p>
-                          </p>
-                            <ArticleImage class="object-contain w-full h-full"
+                            <ArticleImage class="object-contain w-full h-full "
                                 :src="document.title.toLowerCase().replaceAll(' ', '-') + '/'  + document.thumbnail"></ArticleImage>
                         </div>
                         <div class="flex items-center justify-center desc">

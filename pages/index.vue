@@ -5,7 +5,7 @@
         </span>
     </a>
     <div class="landing">
-        <img src="~/assets/images/landingpage.jpg" alt="temp" class="mx-auto block max-w-full max-h-full mr-auto"/>
+        <img src="~/assets/images/landingpage.jpg" alt="temp" class="block object-contain w-full h-full" height="90vh" width="100vw"/>
     </div>
     <article>
         <h1 class="mt-16 text-5xl text-center scroll-smooth" id="PapaKaas">

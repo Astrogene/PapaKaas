@@ -1,5 +1,5 @@
 <template>
-  <img
+  <nuxt-img
     :src="imgSrc()"
     :alt="alt || 'failed to load image'"
     :onerror="alt ? alt : `this.style.display='none'`"
