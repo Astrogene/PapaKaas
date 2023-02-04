@@ -3,7 +3,6 @@ export const useAuth = defineStore('auth', {
     state: () => {
         return {
             jwt_access: '',
-            jwt_refresh: '',
             user: {
                 loggedIn: false,
                 id: -1,
@@ -22,15 +21,17 @@ export const useAuth = defineStore('auth', {
                     /* Update Pinia state */
                     if (response) {
                         this.jwt_access = response.jwt_access
-                        this.jwt_refresh = response.jwt_refresh
+                    }
+                    else{
+                        return
                     }
                 })
                 .catch(error => { throw error })
             await this.setUser()
+            alert(this.jwt_access)
         },
         logout() {
             this.jwt_access = ''
-            this.jwt_refresh = ''
         },
         async register(registerForm: any) {
             await $fetch(`${baseUrl}/register`, {
@@ -40,26 +41,10 @@ export const useAuth = defineStore('auth', {
                 .then((response) => {
                     if (response) {
                         this.jwt_access = response.jwt_access
-                        this.jwt_refresh = response.jwt_refresh
                     }
                 })
                 .catch(error => { throw error })
             await this.setUser()
-        },
-        async refreshToken(): Promise<any> {
-            await $fetch(`${baseUrl}/refresh`, {
-                method: 'POST',
-                body: {
-                    refresh_token: this.jwt_refresh
-                }
-            }).then((response) => {
-                if (response) {
-                    this.jwt_access = response.access_token
-                    return new Promise(resolve => resolve(true))
-                }
-                return new Promise(resolve => resolve(false))
-
-            }).catch(error => { throw error })
         },
         async setUser() {
             let user_id = -1, role = '', name = '', loggedIn = false
@@ -67,7 +52,7 @@ export const useAuth = defineStore('auth', {
                 method: 'POST',
                 headers: {
                     authorization: this.jwt_access
-                }
+                },
             }).then((response) => {
                 if (response && response.user_id && response.auth_level && response.name){
                     user_id = response.user_id 
@@ -76,12 +61,6 @@ export const useAuth = defineStore('auth', {
                     loggedIn = true
                 }
             })
-            if (!loggedIn && this.jwt_refresh){
-                if (await this.refreshToken()){
-                    this.setUser()
-                }
-                return
-            }
             this.user.id = user_id
             this.user.role = role
             this.user.name = name
@@ -89,6 +68,6 @@ export const useAuth = defineStore('auth', {
         }
     },
     persist: {
-        paths: ['jwt_access', 'jwt_refresh']
+        paths: ['jwt_access']
     },
 })

@@ -13,36 +13,27 @@ export default defineEventHandler(async (event) => {
       async function (err: any, decoded: any) {
         if (decoded) {
           id = decoded.id;
-        } else if (err.name == 'TokenExpiredError') {
-          await useAuth().refreshToken()      
-          return;
-        } else {
-          return;
-        }
+        } 
       }
     );
-    if (id && id != -2) {
-      user = await Users.findOne({ where: { id: id } });
-      if (user) {
+    if (typeof id !== "undefined") {
+      if (id == -2) {
         event.context.auth = {
-          id: id,
-          auth_level: (user as any).role,
-          name: (user as any).username,
+          id: -2,
+          auth_level: 'ADMIN',
+          name: 'Admin',
         };
       }
-    } else {
-        event.context.auth = {
-          id: -1,
-          auth_level: '',
-          name: '',
-        };
-    }
-    if (id == -2) {
-      event.context.auth = {
-        id: -2,
-        auth_level: 'ADMIN',
-        name: 'Admin',
-      };
+      else {
+        user = await Users.findOne({ where: { id: id } });
+        if (user) {
+          event.context.auth = {
+            id: id,
+            auth_level: (user as any).role,
+            name: (user as any).username,
+          };
+        }
+      }
     }
   }
 });

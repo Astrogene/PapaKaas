@@ -12,7 +12,7 @@
             Papa Kaas
         </h1>
         <ContentDoc v-slot="{ doc }">
-            <ContentRenderer class="mx-8 my-16 lg:mx-64 md:mx-32 sm:mx-16" :value="doc" />
+            <ContentRenderer class="mx-8 my-16 doc lg:mx-64 md:mx-32 sm:mx-16" :value="doc" />
         </ContentDoc>
 
     </article>
@@ -29,5 +29,9 @@
 }
 *{
     scroll-behavior: smooth;
+}
+.doc p {
+    margin-top: 2rem /* 32px */ ;
+    margin-bottom: 2rem /* 32px */ ;
 }
 </style>

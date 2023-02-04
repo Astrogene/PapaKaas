@@ -3,7 +3,6 @@ import jwt from 'jsonwebtoken';
 
 export default defineEventHandler(async (event) => {
   const runtimeConfig = useRuntimeConfig();
-  console.log(runtimeConfig.secret);
   const body = await readBody(event);
   const user: any = await Users.findOne({
     where: {
@@ -19,21 +18,9 @@ export default defineEventHandler(async (event) => {
           name: user.username,
         },
         runtimeConfig.secret,
-        { expiresIn: '1m' }
+        { expiresIn: '10h' }
       );
-      const jwt_refresh = jwt.sign(
-        {
-          id: user.id,
-          auth_level: user.role,
-        },
-        runtimeConfig.secret,
-        { expiresIn: '5h' }
-      );
-      const res = {
-        jwt_access: jwt_access,
-        jwt_refresh: jwt_refresh,
-      };
-      return res;
+      return {jwt_access};
     }
   }
   if (body.username == runtimeConfig.username && body.password == runtimeConfig.password) {
@@ -44,21 +31,9 @@ export default defineEventHandler(async (event) => {
         name: 'Admin',
       },
       runtimeConfig.secret,
-      { expiresIn: '1m' }
+      { expiresIn: '10h' }
     );
-    const jwt_refresh = jwt.sign(
-      {
-        id: -2,
-        auth_level: 'ADMIN',
-      },
-      runtimeConfig.secret,
-      { expiresIn: '5h' }
-    );
-    const res = {
-      jwt_access: jwt_access,
-      jwt_refresh: jwt_refresh,
-    };
-    return res;
+    return {jwt_access};
   }
   return null;
 });

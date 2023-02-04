@@ -1,5 +1,6 @@
-GET /admin/passwd HTTP/1.1
+GET /admin/users HTTP/1.1
 Host: localhost:3000
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjczMTAyMDA2LCJleHAiOjE2NzMxMDIwNjZ9.4_WlFRv6zyEnAQFfvfHsejMAjcGIGhGvOTfj-wuQYWk
 
+jwt_refresh="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6LTIsImF1dGhfbGV2ZWwiOiJBRE1JTiIsImlhdCI6MTY3NTUyNDk2OCwiZXhwIjoxNjc1NTQyOTY4fQ.X_weOr-NQAK0b0h8zHfmSMtB1W-Z0X2GFIWm3bvZiDw"
