@@ -34,8 +34,6 @@
     </div>
 </template>
 <script setup lang="ts">
-import { useAuthStore } from '~~/stores/auth';
-
 const {pending, data: users, refresh} = await useAuthFetch('/api/user/get-all-users')
 definePageMeta({
     middleware: 'require-admin'

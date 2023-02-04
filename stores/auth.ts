@@ -1,10 +1,5 @@
-import { defineStore } from 'pinia'
-import jwt from 'jsonwebtoken'
-
 const baseUrl = '/api/auth'
-
-export const useAuthStore = defineStore({
-    id: 'auth',
+export const useAuth = defineStore('auth', {
     state: () => {
         return {
             jwt_access: '',
@@ -23,7 +18,7 @@ export const useAuthStore = defineStore({
                 method: 'POST',
                 body: loginForm
             })
-                .then(response => {
+                .then((response: any) => {
                     /* Update Pinia state */
                     if (response) {
                         this.jwt_access = response.jwt_access
@@ -42,7 +37,7 @@ export const useAuthStore = defineStore({
                 method: 'POST',
                 body: registerForm
             })
-                .then(response => {
+                .then((response) => {
                     if (response) {
                         this.jwt_access = response.jwt_access
                         this.jwt_refresh = response.jwt_refresh
@@ -57,7 +52,7 @@ export const useAuthStore = defineStore({
                 body: {
                     refresh_token: this.jwt_refresh
                 }
-            }).then(response => {
+            }).then((response) => {
                 if (response) {
                     this.jwt_access = response.access_token
                     return new Promise(resolve => resolve(true))
@@ -73,7 +68,7 @@ export const useAuthStore = defineStore({
                 headers: {
                     authorization: this.jwt_access
                 }
-            }).then(response => {
+            }).then((response) => {
                 if (response && response.user_id && response.auth_level && response.name){
                     user_id = response.user_id 
                     role = response.auth_level
@@ -95,5 +90,5 @@ export const useAuthStore = defineStore({
     },
     persist: {
         paths: ['jwt_access', 'jwt_refresh']
-    }
+    },
 })

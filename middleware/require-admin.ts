@@ -1,7 +1,6 @@
-import { useAuthStore } from "~~/stores/auth"
 
 export default defineNuxtRouteMiddleware(async (to) => {
-    const authStore = useAuthStore()
+    const authStore = useAuth()
     if (!(authStore.user.role === "ADMIN")) {
         return abortNavigation()
     }

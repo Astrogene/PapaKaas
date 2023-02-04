@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useAuthStore } from "../../stores/auth"
 interface registerForm {
     username: string;
     password: string;
@@ -18,12 +17,12 @@ function register() {
     if (process.server) {
         return
     }
-    const authStore = useAuthStore();
+    const authStore = useAuth();
     const router = useRouter();
     authStore
         .register(registerForm)
-        .then((_response) => router.push("/"))
-        .catch((error) => console.log("API error", error));
+        .then((_response: any) => router.push("/"))
+        .catch((error: any) => console.log("API error", error));
     console.log("Registered")
 }
 </script>

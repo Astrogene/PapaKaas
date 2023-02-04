@@ -64,11 +64,8 @@
     </header>
 </template>
 <script setup lang="ts">
-import { storeToRefs } from 'pinia';
-import { useAuthStore } from '~~/stores/auth';
-
 const active = ref(false)
-const { user } = storeToRefs(useAuthStore())
+const { user } = useAuth()
 let show = ref(false)
 </script>
 <style>

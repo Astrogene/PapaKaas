@@ -1,6 +1,5 @@
 import jwt from 'jsonwebtoken';
 import Users from '~~/models/Users';
-import { useAuthStore } from '~~/stores/auth';
 
 export default defineEventHandler(async (event) => {
   if (event.node.req.headers.authorization) {
@@ -15,7 +14,7 @@ export default defineEventHandler(async (event) => {
         if (decoded) {
           id = decoded.id;
         } else if (err.name == 'TokenExpiredError') {
-          await useAuthStore().refreshToken()      
+          await useAuth().refreshToken()      
           return;
         } else {
           return;
