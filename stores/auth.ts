@@ -28,7 +28,6 @@ export const useAuth = defineStore('auth', {
                 })
                 .catch(error => { throw error })
             await this.setUser()
-            alert(this.jwt_access)
         },
         logout() {
             this.jwt_access = ''

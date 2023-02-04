@@ -13,7 +13,6 @@ export default defineEventHandler(async (event) => {
                 }
             }
         );
-        console.log('not expired')
         return false
     }
 })
