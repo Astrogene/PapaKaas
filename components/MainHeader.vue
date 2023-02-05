@@ -19,13 +19,17 @@
                     <li v-if="!user.loggedIn" class="px-4 py-2 mr-4 bg-green-600 hover:scale-110 hover:bg-green-700">
                         <NuxtLink to="/auth/login">Login</NuxtLink>
                     </li>
-                    <li class="pl-4 mr-8 text-green-900 scale-105 border-l-4 border-green-400 dropdown hover:scale-110" v-else>
+                    <li class="z-30 pl-4 mr-8 text-green-900 scale-105 border-l-4 border-green-400 dropdown" v-else>
                         <button @click="active = !active" class="inline-block ">
                             {{ user.name }}
                         </button>
                         <div v-if="active" class='absolute left-0 block top-8'>
-                            <p class="px-4 py-2 bg-green-700 ">TEST</p>
+                            <button class="px-4 py-2 bg-green-700 rounded-lg ">Profile</button>
+                            <div v-if="active" class='absolute left-0 block top-8'>
+                                <button @click="logout()" class="px-4 py-2 bg-green-700 rounded-lg ">Logout</button>
+                            </div>
                         </div>
+                        
                     </li>
                 </ul>
             </nav>
@@ -69,6 +73,10 @@
 const active = ref(false)
 const { user } = useAuth()
 let show = ref(false)
+function logout() {
+    useAuth().logout()
+    location.reload()
+}
 </script>
 <style>
 .fade-enter-active,
