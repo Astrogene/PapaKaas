@@ -32,9 +32,15 @@ export default defineNuxtConfig({
         "@kevinmarrec/nuxt-pwa"
     ],
     pwa: {
+        manifest: {
+            name: 'PapaKaas',
+            lang: 'nl',
+            background_color: '#ffe442'
+        },
         meta: {
             name: 'PapaKaas',
             author: 'Astro',
+            theme_color: '#ffe442',
             // Generate splash screens for iOS
             mobileAppIOS: true,
         },
