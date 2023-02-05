@@ -31,6 +31,14 @@ export default defineNuxtConfig({
         "formidable",
         "@kevinmarrec/nuxt-pwa"
     ],
+    pwa: {
+        meta: {
+            name: 'PapaKaas',
+            author: 'Astro',
+            // Generate splash screens for iOS
+            mobileAppIOS: true,
+        },
+    },
     runtimeConfig: {
         secret: 'superdupersafesecret',
         username: 'admin',
@@ -50,18 +58,9 @@ export default defineNuxtConfig({
         }
     },
     nitro: {
-        compressPublicAssets: true,
         prerender: {
             crawlLinks: true
         }
     },
-    pwa: {
-        meta: {
-            name: 'PapaKaas',
-            author: 'Astro',
-            // Generate splash screens for iOS
-            mobileAppIOS: true,
-        },
-    }
 })
 
