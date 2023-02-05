@@ -1,4 +1,5 @@
 export default defineEventHandler(async (event) => {
+    console.log(event.context.auth, 'no context?')
     if (event.context.auth){
         return {
             user_id: event.context.auth.id,

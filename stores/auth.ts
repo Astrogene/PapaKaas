@@ -53,6 +53,7 @@ export const useAuth = defineStore('auth', {
                     authorization: this.jwt_access
                 },
             }).then((response) => {
+                console.log(response)
                 if (response && response.user_id && response.auth_level && response.name){
                     user_id = response.user_id 
                     role = response.auth_level

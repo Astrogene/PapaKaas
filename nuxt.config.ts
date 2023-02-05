@@ -7,7 +7,7 @@ export default defineNuxtConfig({
             htmlAttrs: {
                 lang: 'nl'
             },
-            viewport: 'width=500, initial-scale=1',
+            viewport: 'width=device-width, initial-scale=1',
             title: 'PapaKaas',
             meta: [
                 // <meta name="description" content="My amazing site">
@@ -29,6 +29,7 @@ export default defineNuxtConfig({
         '@pinia/nuxt', // v 0.4.6
         '@pinia-plugin-persistedstate/nuxt',
         "formidable",
+        "@kevinmarrec/nuxt-pwa"
     ],
     runtimeConfig: {
         secret: 'superdupersafesecret',
@@ -54,5 +55,13 @@ export default defineNuxtConfig({
             crawlLinks: true
         }
     },
+    pwa: {
+        meta: {
+            name: 'PapaKaas',
+            author: 'Astro',
+            // Generate splash screens for iOS
+            mobileAppIOS: true,
+        },
+    }
 })
 

@@ -1,6 +1,6 @@
-export const useAuthFetch = (url: string, opts?: any | undefined | null) => {
+export const useAuthFetch = async (url: string, opts?: any | undefined | null) => {
     const authStore = useAuth();
-    const fetched = useFetch(url, {
+    const fetched = await useFetch(url, {
         ...(opts ? opts : {}),
         headers: {
             Authorization: `Bearer ${authStore.jwt_access}`,

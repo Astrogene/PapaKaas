@@ -7,6 +7,12 @@
         </main>
     </div>
 </template>
+<script setup lang="ts">
+const authStore = useAuth()
+if (!authStore.user.loggedIn) {
+    useAsyncData(async () => {await authStore.setUser()})
+}
+</script>
 <style>
 .navbar-nav {
     display: flex;
