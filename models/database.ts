@@ -1,8 +1,5 @@
-import { Sequelize } from 'sequelize';
+import { Sequelize } from 'sequelize-cockroachdb';
 
-var sequelize = new Sequelize({
-  dialect: 'sqlite',
-  storage: './data/users.db',
-});
+var sequelize = new Sequelize(process.env.DATABASE_URL, {});
 sequelize.sync();
 export default sequelize;
