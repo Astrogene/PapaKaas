@@ -1,5 +1,7 @@
 # PapaKaas
+[Demo](https://stackblitz.com/edit/nuxt-starter-eaep9g?file=package.json)
 [Live demo](https://papakaas.onrender.com)
+
 ## Installation
 First download [git](https://git-scm.com/downloads) <br/>
 Open a command line prompt <br/>
