@@ -1,6 +1,9 @@
 # PapaKaas
 [Live demo](https://papakaas.onrender.com)
 ## Installation
+First download [git](https://git-scm.com/downloads)
+Open a command line
+Create a new folder
 Clone this repo in a new folder
 ```
 git clone https://github.com/Astrogene/PapaKaas
