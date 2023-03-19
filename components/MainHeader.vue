@@ -20,16 +20,23 @@
                         <NuxtLink to="/auth/login">Login</NuxtLink>
                     </li>
                     <li class="z-30 pl-4 mr-8 text-green-900 scale-105 border-l-4 border-green-400 dropdown" v-else>
-                        <button @click="active = !active" class="inline-block ">
+                        <button @click="active = !active" class="inline-block hover:scale-110" >
                             {{ user.name }}
                         </button>
                         <div v-if="active" class='absolute left-0 block top-8'>
-                            <button class="px-4 py-2 bg-green-700 rounded-lg ">Profile</button>
-                            <div v-if="active" class='absolute left-0 block top-8'>
-                                <button @click="logout()" class="px-4 py-2 bg-green-700 rounded-lg ">Logout</button>
-                            </div>
+                            <NuxtLink @click="active = !active" to="/profile" class="block px-4 py-2 bg-green-600 rounded-lg hover:bg-green-700 ">
+                                <p class="hover:scale-110">Profile</p>
+                            </NuxtLink>
+                            <NuxtLink @click="active = !active" v-if="user.role == 'ADMIN'" to="/admin/upload" class="block px-4 py-2 bg-green-600 rounded-lg hover:bg-green-700 ">
+                                <p class="hover:scale-110">Upload</p>
+                            </NuxtLink>
+                            <NuxtLink @click="active = !active" v-if="user.role == 'ADMIN'" to="/admin/users" class="block px-4 py-2 bg-green-600 rounded-lg hover:bg-green-700">
+                                <p class="hover:scale-110">Users</p>
+                            </NuxtLink>
+                            <button  @click="logout()" class="px-4 py-2 bg-green-600 rounded-lg hover:bg-green-700">
+                                <p class="hover:scale-110">Logout</p>
+                            </button>
                         </div>
-                        
                     </li>
                 </ul>
             </nav>

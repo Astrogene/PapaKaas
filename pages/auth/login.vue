@@ -42,7 +42,7 @@ function login() {
         <input
           v-model="loginForm.username"
           required
-          type="username"
+          type="text"
           class="p-4 border-4 border-green-300 rounded-lg outline-none bg-slate-800 focus:border-green-500"
           placeholder="username"
         />
@@ -54,6 +54,7 @@ function login() {
           type="password"
           class="p-4 border-4 border-green-300 rounded-lg outline-none bg-slate-800 focus:border-green-500"
           placeholder="password"
+          autocomplete="password"
         />
       </div>
       <button type="submit" class="px-16 py-4 text-center transition duration-200 border-4 border-green-300 rounded-xl hover:bg-green-400 hover:scale-110">Login</button>

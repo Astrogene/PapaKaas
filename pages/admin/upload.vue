@@ -1,9 +1,9 @@
 <template>
     <form ref="data">
         <h1>Title</h1>
-        <input type="text" name="title" outlined @change="updateState"/>
+        <input type="text" name="title" class="bg-slate-800" outlined @change="updateState" />
         <h1>Markdown</h1>
-        <textarea spellcheck="false" class="w-full h-96" name="text" value="---
+        <textarea spellcheck="false" class="w-full h-96 bg-slate-800" name="text" value="---
 thumbnail: Naam van het plaatje.png
 ---
 De eerste paar paragrafen die worden getoond op galerij
@@ -23,14 +23,28 @@ enz.
 
 
 
-"></textarea>>
-        <h1 class="mt-4">Images</h1>
-        <input multiple outlined type="file" name="images" ref="files" accept="image/*" @change="previewFile" />
+"></textarea>
+        <h1 class="my-4 text-2xl">Images</h1>
+        <input class="bg-slate-800" multiple outlined type="file" name="images" ref="files" accept="image/*"
+            @change="previewFile" />
     </form>
-    <ul v-for="image in images">
-        <img class="child-img" v-bind:src="image" />
+    <ul class="grid grid-cols-4 mx-8">
+        <li class="relative h-64 p-2 m-2 border-4 border-slate-900" v-for="image in images">
+            <button class="absolute top-0 left-0 w-full h-full bg-no-repeat bg-contain hover:blur-lg peer"
+                v-bind:style="{ backgroundImage: 'url(' + image[0] + ')' }" @click="copy">
+            </button>
+            <div class="absolute hidden -translate-x-1/2 -translate-y-1/2 select-none top-1/2 left-1/2 child peer-hover:block">
+                <p>
+                    Click to copy the image name
+                </p>
+                <p ref="nameimage">
+                    {{ this.formData.get("title") + '/' + image[1] }}
+                </p>
+            </div>
+        </li>
     </ul>
-    <button @click="uploaded ? upload() : null" >Upload</button>
+    <button class="block p-2 m-auto my-4 rounded-xl bg-slate-800"
+        @click="uploaded ? upload() : alert('Not enough data')">Upload</button>
 </template>
 <script>
 definePageMeta({
@@ -43,7 +57,8 @@ export default {
         uploaded: false,
     }),
     methods: {
-        updateState(){
+        updateState() {
+            this.previewFile()
             this.formData = new FormData(this.$refs.data)
             if (this.formData.get("title") && this.formData.get("text")) {
                 this.uploaded = true
@@ -55,8 +70,8 @@ export default {
         previewFile() {
             this.formData = new FormData(this.$refs.data)
             this.images = []
-            Array.from(this.$refs.files.files).forEach( (value) => {
-                this.images.push(URL.createObjectURL(value))
+            Array.from(this.$refs.files.files).forEach((value) => {
+                this.images.push(new Array(URL.createObjectURL(value), value.name))
             })
             this.updateState()
         },
@@ -67,6 +82,10 @@ export default {
                 body: this.formData
             })
             await navigateTo("/")
+        },
+        copy(){
+            console.log(this.$refs.nameimage[0])
+            navigator.clipboard.writeText(this.$refs.nameimage[0].innerText.toString())
         }
     }
 }

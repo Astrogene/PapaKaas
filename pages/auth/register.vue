@@ -34,7 +34,7 @@ function register() {
         </h1>
         <form class="flex flex-col items-center justify-center" @submit.prevent="register">
             <div class="my-4 username">
-                <input v-model="registerForm.username" required type="username"
+                <input v-model="registerForm.username" required type="text"
                     class="p-4 border-4 border-green-300 rounded-lg outline-none bg-slate-800 focus:border-green-500"
                     placeholder="username" />
             </div>
