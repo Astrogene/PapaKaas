@@ -12,4 +12,4 @@ yarn install
 yarn build
 node .output/server/index.mjs 
 ```
-The server should now be running on localhost and accessible via localhost:3000/
+The server should now be running on localhost and accessible via https://localhost:3000/
