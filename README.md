@@ -1,7 +1,12 @@
 # PapaKaas
+[Demo](https://stackblitz.com/edit/nuxt-starter-eaep9g?file=package.json) <br/>
 [Live demo](https://papakaas.onrender.com)
+
 ## Installation
-Clone this repo in a new folder
+First download [git](https://git-scm.com/downloads) <br/>
+Open a command line prompt <br/>
+Create a new folder <br/>
+Clone this repo in that folder
 ```
 git clone https://github.com/Astrogene/PapaKaas
 ```
