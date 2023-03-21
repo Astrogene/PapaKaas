@@ -18,3 +18,16 @@ yarn build
 node .output/server/index.mjs 
 ```
 The server should now be running on localhost and accessible via https://localhost:3000/
+
+# Features 
+Admin page (upload to gallery/delete users) 
+
+Gallery (dynamic posts can easily delete and add) 
+
+Login/register (also admin account) 
+
+Home and contact and about page (markdown) 
+
+Ability to view profilep
+
+
