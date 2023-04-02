@@ -1,8 +1,8 @@
-# CONTACT PAPA KAAS
+# CONTACT Bommel KAAS
 
-e: info@papakaas.nl <br/> <br/>
-w: www.papakaas.nl <br/> <br/>
-i: www.instagram.com/papakaas/ <br/> <br/>
+e: info@Bommelkaas.nl <br/> <br/>
+w: www.Bommelkaas.nl <br/> <br/>
+i: www.instagram.com/Bommelkaas/ <br/> <br/>
 
 Openingstijden:
 

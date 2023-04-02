@@ -8,10 +8,10 @@ export default defineNuxtConfig({
                 lang: 'nl'
             },
             viewport: 'width=device-width, initial-scale=1',
-            title: 'PapaKaas',
+            title: 'BommelKaas',
             meta: [
                 // <meta name="description" content="My amazing site">
-                { name: 'description', content: 'De PapaKaas website' }
+                { name: 'description', content: 'De BommelKaas website' }
             ],
         }
     },
@@ -33,12 +33,12 @@ export default defineNuxtConfig({
     ],
     pwa: {
         manifest: {
-            name: 'PapaKaas',
+            name: 'BommelKaas',
             lang: 'nl',
             background_color: '#ffe442'
         },
         meta: {
-            name: 'PapaKaas',
+            name: 'BommelKaas',
             author: 'Astro',
             theme_color: '#ffe442',
             // Generate splash screens for iOS

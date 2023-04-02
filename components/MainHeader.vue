@@ -4,7 +4,7 @@
                 <ul class="h-12 navbar-nav">
                     <li class="self-start h-12">
                         <NuxtLink to="/">
-                            <nuxt-img src="/images/logo.svg" class="h-12 ml-4 cursor-pointer hover:scale-110" height="3rem" alt="PapaKaas" />
+                            <nuxt-img src="/images/logo.svg" class="h-12 ml-4 cursor-pointer hover:scale-110" height="3rem" alt="BommelKaas" />
                         </NuxtLink>
                     </li>
                     <li class="px-4 py-2 ml-auto bg-green-600 hover:scale-110 hover:bg-green-700">
@@ -44,7 +44,7 @@
                 <ul class="h-12 navbar-nav">
                     <li class="self-start h-12">
                         <NuxtLink to="/">
-                            <nuxt-img src="/images/logo.svg" class="h-12 ml-4 cursor-pointer hover:scale-110" height="3rem" alt="PapaKaas" />
+                            <nuxt-img src="/images/logo.svg" class="h-12 ml-4 cursor-pointer hover:scale-110" height="3rem" alt="BommelKaas" />
                         </NuxtLink>
                     </li>
                     <li class="ml-auto mr-4">
