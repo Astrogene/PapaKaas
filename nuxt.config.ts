@@ -29,7 +29,8 @@ export default defineNuxtConfig({
         '@pinia/nuxt', // v 0.4.6
         '@pinia-plugin-persistedstate/nuxt',
         "formidable",
-        "@kevinmarrec/nuxt-pwa"
+        "@kevinmarrec/nuxt-pwa",
+        'nuxt-socket-io',
     ],
     pwa: {
         manifest: {
@@ -49,7 +50,7 @@ export default defineNuxtConfig({
         secret: 'superdupersafesecret',
         username: 'admin',
         password: 'bestpassword',
-        
+        press_secret: 'tobechanged',
         public: { apiBase: '/api' }
     },
     imports: {
@@ -68,5 +69,11 @@ export default defineNuxtConfig({
             crawlLinks: true
         }
     },
+    io: {
+        // module options
+        sockets: [{
+            url: 'http://localhost:8888'
+        }]
+    }
 })
 

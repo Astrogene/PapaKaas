@@ -33,6 +33,9 @@
                             <NuxtLink @click="active = !active" v-if="user.role == 'ADMIN'" to="/admin/users" class="block px-4 py-2 bg-green-600 rounded-lg hover:bg-green-700">
                                 <p class="hover:scale-110">Users</p>
                             </NuxtLink>
+                            <NuxtLink @click="active = !active" v-if="user.role == 'ADMIN'" to="/admin/press" class="block px-4 py-2 bg-green-600 rounded-lg hover:bg-green-700">
+                                    <p class="hover:scale-110">Press</p>
+                                </NuxtLink>
                             <button  @click="logout()" class="px-4 py-2 bg-green-600 rounded-lg hover:bg-green-700">
                                 <p class="hover:scale-110">Logout</p>
                             </button>
