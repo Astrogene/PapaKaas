@@ -1,45 +1,25 @@
 <template>
- {{ auth }}
- <button @click="getMessage()">
-
- </button>
+    <ul class="grid grid-rows-5 gap-8 list-none md:grid-cols-3 lg:grid-cols-4 grid-flow-cols-dense ">
+        <li v-if="Presses != undefined" v-for="press in (Presses as any)">
+            <NuxtLink :to="'/admin/press-'+ press.press_data.id">
+                        <li class="grid overflow-hidden border-4 h-80 border-slate-800 bg-slate-600">
+                            <div class="flex flex-col max-h-80">
+                                <h1 class="text-2xl text-center">"Press {{ press.press_data.id }}"</h1>
+                                <p class="text-center text-md">
+                                    {{ press.press_data.weights[press.press_data.t] }} {{ press.press_data.corrections[press.press_data.t] }}
+                                    {{ press.press_data.t }}
+                                </p>
+                            </div>
+                        </li>
+            </NuxtLink>
+        </li>
+    </ul>
+    <button @click="refresh()">Refresh!</button>
 </template>
-<script lang="ts">
+<script setup lang="ts">
+const { pending, data: Presses, refresh } = await useAuthFetch('/api/admin/press-list')
 definePageMeta({
     middleware: "require-admin"
 })
-import type { NuxtSocket } from 'nuxt-socket-io';
-export default{
-    data() {
-        return {
-            socket: null as unknown as NuxtSocket,
-            messageRxd: null,
-            auth: false,
-        }
-    },
-    mounted() {
-        this.socket = this.$nuxtSocket({
-            // nuxt-socket-io opts: 
-            channel: '/index', // connect to '/index'
 
-            // socket.io-client opts:
-            reconnection: false
-        })
-        this.socket.on("connection", (socket) => {
-            socket.on("message", (data: string) => {
-                const packet = JSON.parse(data)
-                this.auth = true
-                switch(packet.type){
-                    case "AUTH":
-                        this.auth = true
-                }
-            })
-        })
-    },
-    methods: {
-        async getMessage() {
-            this.messageRxd = await this.socket.emitP('getMessage', { id: 'abc123' })
-        },
-    }
-}
 </script>
