@@ -90,7 +90,7 @@ function addToCSV(data: any): void {
 /*
 TOKEN: AUTH
 SESSION: ID
-{"id": "auth","token": "tobechanged", "t_f":""}
+{"id": "auth","token": "tobechanged", "t_f":"1"}
 { "id": "data", "session":0, "token":"tobechanged", "weights":1.5, "corrections":2}
 { "id": "done", "session":0, "token":"tobechanged"}
 */
