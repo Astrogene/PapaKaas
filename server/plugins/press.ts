@@ -32,7 +32,7 @@ export default defineNitroPlugin((nitroApp) => {
                     case "auth": {
                         if (data["token"] == useRuntimeConfig().press_secret) {
                             Presses.push({ press_data: {
-                                id: 0, weights: [], corrections: [], t: -1, t_f: data["t_f"]
+                                id: 0, weights: [], corrections: [], t: 0, t_f: data["t_f"]
                             }, socket: socket, header: false, cheese: { name: "", factor: 0}, started: false
                         })
                             console.log("Got token")
@@ -83,8 +83,9 @@ function addToCSV(data: any): void {
             fs.writeFileSync(`${path.join(new_path, "data.csv")}`, "t,weights,corrections \r\n")
             press.header = true
         }
+        
+        fs.appendFileSync(`${path.join(new_path, "data.csv")}`, `${press.press_data.t * press.press_data.t_f},${data["weights"]},${data["corrections"]}\r\n`)
         press.press_data.t++;
-        fs.appendFileSync(`${path.join(new_path, "data.csv")}`, `${press.press_data.t * press.press_data.t_f},${data["weight"]},${data["correction"]}\r\n`)
     }
 }
 
