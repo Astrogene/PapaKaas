@@ -30,7 +30,6 @@ export default defineNuxtConfig({
         '@pinia-plugin-persistedstate/nuxt',
         "formidable",
         "@kevinmarrec/nuxt-pwa",
-        'nuxt-socket-io',
     ],
     pwa: {
         manifest: {
