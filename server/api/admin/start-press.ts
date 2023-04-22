@@ -6,7 +6,7 @@ export default defineEventHandler(async (event) => {
         if (press != undefined){
             if (!press.started == true){
                 press.started = true
-                press.socket.write(`F${body.factor}H${body.hours}E`)
+                press.socket.write(`F${body.factor}H${((body.hours as any)*60 + (body.minutes as any))}S${press.press_data.id}E`)
             }
         }        
     }

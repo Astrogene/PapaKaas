@@ -24,6 +24,7 @@ export default defineNitroPlugin((nitroApp) => {
     var server = net.createServer();
 
     server.on("connection", (socket: any) => {
+        console.log("Press connected")
         socket.on('data', function (chunk: any) {
             var data = JSON.parse(chunk.toString());
             if (data && data.hasOwnProperty("id")) {
@@ -42,7 +43,7 @@ export default defineNitroPlugin((nitroApp) => {
                         break;
                     }
                     case "data": {
-                        if (data["token"] == useRuntimeConfig().press_secret && data["weights"] && data["corrections"]) {
+                        if (data["token"] == useRuntimeConfig().press_secret && data["weight"] && data["correction"]) {
                             addToCSV(data)
                         }
                         else {
@@ -66,14 +67,14 @@ export default defineNitroPlugin((nitroApp) => {
             console.log("Disconnected")
         })
     })
-    server.listen(8888, '127.0.0.1');
+    server.listen(8888);
 })
 function addToCSV(data: any): void {
     let press = Presses.find(i => i.press_data.id === data["session"]);
     console.log("Adding CSV data")
     if (press){
-        press.press_data.weights.push(data["weights"]);
-        press.press_data.corrections.push(data["corrections"]);
+        press.press_data.weights.push(data["weight"]);
+        press.press_data.corrections.push(data["correction"]);
         let new_path = `${path.join("data/press/session-" + data["session"].toString())}`;
         if (!fs.existsSync(new_path)) {
             fs.mkdirSync(new_path);
@@ -83,7 +84,7 @@ function addToCSV(data: any): void {
             press.header = true
         }
         press.press_data.t++;
-        fs.appendFileSync(`${path.join(new_path, "data.csv")}`, `${press.press_data.t * press.press_data.t_f},${data["weights"]},${data["corrections"]}\r\n`)
+        fs.appendFileSync(`${path.join(new_path, "data.csv")}`, `${press.press_data.t * press.press_data.t_f},${data["weight"]},${data["correction"]}\r\n`)
     }
 }
 
@@ -91,6 +92,6 @@ function addToCSV(data: any): void {
 TOKEN: AUTH
 SESSION: ID
 {"id": "auth","token": "tobechanged", "t_f":"1"}
-{ "id": "data", "session":0, "token":"tobechanged", "weights":1.5, "corrections":2}
+{ "id": "data", "session":0, "token":"tobechanged", "weight":1.5, "correction":2}
 { "id": "done", "session":0, "token":"tobechanged"}
 */
